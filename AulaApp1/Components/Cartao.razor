@@ -1,0 +1,17 @@
+﻿@* o título vem por parâmetro e o recheio por ChildContent *@
+<div class="card card-body">
+    @if (!string.IsNullOrWhiteSpace(Titulo))
+    {
+        <h5 class="card-title">@Titulo</h5>
+    }
+
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public string Titulo { get; set; } = "";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

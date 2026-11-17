@@ -1,0 +1,34 @@
+﻿@* avisa a página quando o cadastro é válido. *@
+<EditForm Model="novo" OnValidSubmit="EnviarAsync" FormName="formProduto">
+    <DataAnnotationsValidator />
+
+    <label class="form-label">Nome</label>
+    <InputText class="form-control" @bind-Value="novo.Nome" />
+    <ValidationMessage For="() => novo.Nome" class="text-danger" />
+
+    <label class="form-label">Preço</label>
+    <InputNumber class="form-control" @bind-Value="novo.Preco" />
+    <ValidationMessage For="() => novo.Preco" class="text-danger" />
+
+    <label class="form-label">Quantidade</label>
+    <InputNumber class="form-control" @bind-Value="novo.Quantidade" />
+    <ValidationMessage For="() => novo.Quantidade" class="text-danger" />
+
+    <button type="submit" class="btn btn-primary mt-3">Adicionar produto</button>
+</EditForm>
+
+@code {
+    private Produto novo = new();
+
+    [Parameter]
+    public EventCallback<Produto> OnProdutoValido { get; set; }
+
+    private async Task EnviarAsync()
+    {
+        // 1) avisa a página, entregando o produto
+        await OnProdutoValido.InvokeAsync(novo);
+
+        // 2) limpa o formulário para o próximo cadastro
+        novo = new Produto();
+    }
+}

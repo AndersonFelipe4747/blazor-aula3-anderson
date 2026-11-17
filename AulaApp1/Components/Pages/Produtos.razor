@@ -1,0 +1,29 @@
+﻿@page "/produtos"
+
+<h3>Produtos</h3>
+<div class="row">
+    <div class="col-md-4">
+        <Cartao Titulo="Novo produto">
+            <FormProduto OnProdutoValido="ReceberProduto" />
+        </Cartao>
+    </div>
+    <div class="col-md-8">
+        @if (produtos.Count == 0)
+        {
+            <AvisoVazio Mensagem="Nenhum produto cadastrado" />
+        }
+        else
+        {
+            <TabelaProdutos Produtos="produtos" />
+        }
+    </div>
+</div>
+
+@code {
+    private List<Produto> produtos = new();
+
+    private void ReceberProduto(Produto produto)
+    {
+        produtos.Add(produto);
+    }
+}
